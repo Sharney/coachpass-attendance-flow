@@ -35,46 +35,47 @@ const Index = () => {
         return <DashboardStats />;
       case 'checkin':
         return (
-          <div className="space-y-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold">即時簽到管理</h2>
-              <Button onClick={() => setShowCheckIn(true)} className="bg-primary hover:bg-primary/90">
+          <div className="space-y-4">
+            <div className="flex flex-col space-y-3">
+              <h2 className="text-xl font-bold">即時簽到管理</h2>
+              <Button onClick={() => setShowCheckIn(true)} className="bg-primary hover:bg-primary/90 w-full">
                 <QrCode className="mr-2 h-4 w-4" />
                 開始簽到
               </Button>
             </div>
             
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-4">
               {upcomingClasses.map((classItem) => (
                 <Card key={classItem.id} className="hover:shadow-md transition-shadow">
-                  <CardHeader className="pb-3">
+                  <CardHeader className="pb-2">
                     <div className="flex justify-between items-start">
-                      <div>
-                        <CardTitle className="text-lg">{classItem.name}</CardTitle>
-                        <CardDescription className="flex items-center gap-2 mt-1">
-                          <Clock className="h-4 w-4" />
-                          {classItem.time} • 教練: {classItem.coach}
+                      <div className="flex-1">
+                        <CardTitle className="text-base">{classItem.name}</CardTitle>
+                        <CardDescription className="flex items-center gap-1 mt-1 text-xs">
+                          <Clock className="h-3 w-3" />
+                          {classItem.time} • {classItem.coach}
                         </CardDescription>
                       </div>
-                      <Badge variant={classItem.enrolled >= classItem.capacity * 0.8 ? "default" : "secondary"}>
+                      <Badge variant={classItem.enrolled >= classItem.capacity * 0.8 ? "default" : "secondary"} className="text-xs">
                         {classItem.enrolled}/{classItem.capacity}
                       </Badge>
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
+                  <CardContent className="pt-0">
+                    <div className="space-y-2">
                       <div>
-                        <div className="flex justify-between text-sm mb-1">
+                        <div className="flex justify-between text-xs mb-1">
                           <span>出席率</span>
                           <span>{Math.round((classItem.enrolled / classItem.capacity) * 100)}%</span>
                         </div>
-                        <Progress value={(classItem.enrolled / classItem.capacity) * 100} className="h-2" />
+                        <Progress value={(classItem.enrolled / classItem.capacity) * 100} className="h-1.5" />
                       </div>
                       <Button 
                         onClick={() => setShowCheckIn(true)} 
-                        className="w-full bg-secondary hover:bg-secondary/90"
+                        className="w-full bg-secondary hover:bg-secondary/90 text-sm py-2"
+                        size="sm"
                       >
-                        <ScanLine className="mr-2 h-4 w-4" />
+                        <ScanLine className="mr-2 h-3 w-3" />
                         掃描簽到
                       </Button>
                     </div>
@@ -96,37 +97,35 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-white border-b border-border px-8 py-4">
+      <header className="bg-white border-b border-border px-4 py-3">
         <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <div className="bg-primary text-primary-foreground p-2 rounded-xl">
-              <TrendingUp className="h-6 w-6" />
+          <div className="flex items-center space-x-3">
+            <div className="bg-primary text-primary-foreground p-1.5 rounded-lg">
+              <TrendingUp className="h-5 w-5" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-primary">CoachPass</h1>
-              <p className="text-sm text-muted-foreground">健身房管理系統</p>
+              <h1 className="text-lg font-bold text-primary">CoachPass</h1>
+              <p className="text-xs text-muted-foreground">健身房管理系統</p>
             </div>
           </div>
           
-          <div className="flex items-center space-x-3">
-            <Button variant="outline" size="sm">
-              <Bell className="h-4 w-4 mr-2" />
-              通知
+          <div className="flex items-center space-x-2">
+            <Button variant="outline" size="sm" className="text-xs px-2">
+              <Bell className="h-3 w-3" />
             </Button>
-            <Button variant="outline" size="sm">
-              <Settings className="h-4 w-4 mr-2" />
-              設定
+            <Button variant="outline" size="sm" className="text-xs px-2">
+              <Settings className="h-3 w-3" />
             </Button>
-            <div className="bg-primary text-primary-foreground p-2 rounded-full">
-              <span className="text-sm font-medium">AC</span>
+            <div className="bg-primary text-primary-foreground p-1.5 rounded-full">
+              <span className="text-xs font-medium">AC</span>
             </div>
           </div>
         </div>
       </header>
 
       {/* Navigation Tabs */}
-      <nav className="bg-white border-b border-border px-8 py-2">
-        <div className="flex space-x-8">
+      <nav className="bg-white border-b border-border px-4 py-2 overflow-x-auto">
+        <div className="flex space-x-4 min-w-max">
           {[
             { id: 'dashboard', label: '儀表板', icon: BarChart3 },
             { id: 'checkin', label: '課程簽到', icon: ScanLine },
@@ -138,13 +137,13 @@ const Index = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center space-x-2 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
+                className={`flex items-center space-x-1.5 px-3 py-2 text-xs font-medium rounded-md transition-colors whitespace-nowrap ${
                   activeTab === tab.id
                     ? 'bg-primary/10 text-primary border-b-2 border-primary'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                 }`}
               >
-                <Icon className="h-4 w-4" />
+                <Icon className="h-3 w-3" />
                 <span>{tab.label}</span>
               </button>
             );
@@ -153,37 +152,37 @@ const Index = () => {
       </nav>
 
       {/* Today's Overview */}
-      <div className="px-8 py-6 bg-gradient-to-r from-primary/5 to-secondary/5">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="px-4 py-4 bg-gradient-to-r from-primary/5 to-secondary/5">
+        <div className="grid grid-cols-2 gap-3">
           <Card className="border-none shadow-sm">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-primary">{todayStats.totalClasses}</div>
-              <div className="text-sm text-muted-foreground">今日課程</div>
+            <CardContent className="p-3 text-center">
+              <div className="text-xl font-bold text-primary">{todayStats.totalClasses}</div>
+              <div className="text-xs text-muted-foreground">今日課程</div>
             </CardContent>
           </Card>
           <Card className="border-none shadow-sm">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-secondary">{todayStats.totalAttendance}</div>
-              <div className="text-sm text-muted-foreground">總出席人次</div>
+            <CardContent className="p-3 text-center">
+              <div className="text-xl font-bold text-secondary">{todayStats.totalAttendance}</div>
+              <div className="text-xs text-muted-foreground">總出席人次</div>
             </CardContent>
           </Card>
           <Card className="border-none shadow-sm">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-green-600">{todayStats.attendanceRate}%</div>
-              <div className="text-sm text-muted-foreground">出席率</div>
+            <CardContent className="p-3 text-center">
+              <div className="text-xl font-bold text-green-600">{todayStats.attendanceRate}%</div>
+              <div className="text-xs text-muted-foreground">出席率</div>
             </CardContent>
           </Card>
           <Card className="border-none shadow-sm">
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-orange-600">{todayStats.activeCoaches}</div>
-              <div className="text-sm text-muted-foreground">活躍教練</div>
+            <CardContent className="p-3 text-center">
+              <div className="text-xl font-bold text-orange-600">{todayStats.activeCoaches}</div>
+              <div className="text-xs text-muted-foreground">活躍教練</div>
             </CardContent>
           </Card>
         </div>
       </div>
 
       {/* Main Content */}
-      <main className="container-ipad">
+      <main className="container-iphone">
         {renderTabContent()}
       </main>
 

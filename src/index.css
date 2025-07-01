@@ -36,7 +36,7 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
     
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
 }
 
@@ -83,11 +83,22 @@
   animation: slide-up 0.3s ease-out;
 }
 
-/* iPad optimized spacing */
-.container-ipad {
-  @apply max-w-none px-8 py-6;
+/* iPhone optimized spacing */
+.container-iphone {
+  @apply max-w-none px-4 py-3;
 }
 
-.grid-ipad {
-  @apply grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+.grid-iphone {
+  @apply grid-cols-1 gap-4;
+}
+
+/* Mobile-first responsive adjustments */
+@media (max-width: 480px) {
+  .container-iphone {
+    @apply px-3 py-2;
+  }
+  
+  .grid-iphone {
+    @apply gap-3;
+  }
 }

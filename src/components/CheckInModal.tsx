@@ -54,15 +54,15 @@ export const CheckInModal = ({ open, onOpenChange }: CheckInModalProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-sm mx-4 max-h-[85vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-primary">課程簽到管理</DialogTitle>
+          <DialogTitle className="text-lg font-bold text-primary">課程簽到管理</DialogTitle>
         </DialogHeader>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="space-y-4">
           {/* Class Selection */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-lg">選擇課程</h3>
+          <div className="space-y-3">
+            <h3 className="font-semibold text-base">選擇課程</h3>
             {classes.map((classItem) => (
               <Card 
                 key={classItem.id}
@@ -71,19 +71,19 @@ export const CheckInModal = ({ open, onOpenChange }: CheckInModalProps) => {
                 }`}
                 onClick={() => setSelectedClass(classItem.id)}
               >
-                <CardContent className="p-4">
+                <CardContent className="p-3">
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-medium">{classItem.name}</h4>
-                    <Badge variant="secondary">
+                    <h4 className="font-medium text-sm">{classItem.name}</h4>
+                    <Badge variant="secondary" className="text-xs">
                       {classItem.enrolled}/{classItem.capacity}
                     </Badge>
                   </div>
-                  <div className="text-sm text-muted-foreground space-y-1">
-                    <div className="flex items-center gap-2">
+                  <div className="text-xs text-muted-foreground space-y-1">
+                    <div className="flex items-center gap-1">
                       <Clock className="h-3 w-3" />
                       {classItem.time}
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
                       <Users className="h-3 w-3" />
                       教練: {classItem.coach}
                     </div>
@@ -94,24 +94,24 @@ export const CheckInModal = ({ open, onOpenChange }: CheckInModalProps) => {
           </div>
 
           {/* QR Scanner */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-lg">QR碼掃描</h3>
-            <Card className="text-center p-6">
-              <CardContent className="space-y-4">
+          <div className="space-y-3">
+            <h3 className="font-semibold text-base">QR碼掃描</h3>
+            <Card className="text-center p-4">
+              <CardContent className="space-y-3">
                 {scanningMode ? (
                   <div className="animate-pulse">
-                    <div className="w-32 h-32 bg-primary/20 rounded-lg mx-auto flex items-center justify-center">
-                      <QrCode className="h-16 w-16 text-primary animate-pulse-success" />
+                    <div className="w-24 h-24 bg-primary/20 rounded-lg mx-auto flex items-center justify-center">
+                      <QrCode className="h-12 w-12 text-primary animate-pulse-success" />
                     </div>
-                    <p className="text-sm text-muted-foreground mt-2">掃描中...</p>
+                    <p className="text-xs text-muted-foreground mt-2">掃描中...</p>
                   </div>
                 ) : (
                   <>
-                    <div className="w-32 h-32 bg-muted rounded-lg mx-auto flex items-center justify-center">
-                      <QrCode className="h-16 w-16 text-muted-foreground" />
+                    <div className="w-24 h-24 bg-muted rounded-lg mx-auto flex items-center justify-center">
+                      <QrCode className="h-12 w-12 text-muted-foreground" />
                     </div>
-                    <Button onClick={startQRScan} className="w-full bg-secondary hover:bg-secondary/90">
-                      <QrCode className="mr-2 h-4 w-4" />
+                    <Button onClick={startQRScan} className="w-full bg-secondary hover:bg-secondary/90" size="sm">
+                      <QrCode className="mr-2 h-3 w-3" />
                       開始掃描QR碼
                     </Button>
                   </>
@@ -121,36 +121,37 @@ export const CheckInModal = ({ open, onOpenChange }: CheckInModalProps) => {
           </div>
 
           {/* Manual Check-in */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-lg">手動簽到</h3>
+          <div className="space-y-3">
+            <h3 className="font-semibold text-base">手動簽到</h3>
             
             <div className="relative">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-2.5 h-3 w-3 text-muted-foreground" />
               <Input
                 placeholder="搜尋客戶姓名或電話..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-8 text-sm"
+                size={undefined}
               />
             </div>
 
-            <div className="space-y-2 max-h-96 overflow-y-auto">
+            <div className="space-y-2 max-h-64 overflow-y-auto">
               {filteredClients.map((client) => (
                 <Card key={client.id} className="hover:shadow-sm transition-shadow">
                   <CardContent className="p-3">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                          <span className="text-sm font-medium text-primary">{client.avatar}</span>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                          <span className="text-xs font-medium text-primary">{client.avatar}</span>
                         </div>
                         <div>
-                          <p className="font-medium">{client.name}</p>
-                          <p className="text-sm text-muted-foreground">{client.phone}</p>
+                          <p className="font-medium text-sm">{client.name}</p>
+                          <p className="text-xs text-muted-foreground">{client.phone}</p>
                         </div>
                       </div>
                       
                       {client.status === 'checked-in' ? (
-                        <Badge className="bg-green-100 text-green-800">
+                        <Badge className="bg-green-100 text-green-800 text-xs">
                           <UserCheck className="h-3 w-3 mr-1" />
                           已簽到
                         </Badge>
@@ -158,7 +159,7 @@ export const CheckInModal = ({ open, onOpenChange }: CheckInModalProps) => {
                         <Button
                           size="sm"
                           onClick={() => handleCheckIn(client.id, client.name)}
-                          className="bg-primary hover:bg-primary/90"
+                          className="bg-primary hover:bg-primary/90 text-xs px-2 py-1"
                         >
                           簽到
                         </Button>
@@ -171,12 +172,12 @@ export const CheckInModal = ({ open, onOpenChange }: CheckInModalProps) => {
           </div>
         </div>
 
-        <div className="flex justify-end space-x-2 pt-4 border-t">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
-            關閉
-          </Button>
-          <Button className="bg-primary hover:bg-primary/90">
+        <div className="flex flex-col space-y-2 pt-4 border-t">
+          <Button className="bg-primary hover:bg-primary/90 w-full">
             完成簽到
+          </Button>
+          <Button variant="outline" onClick={() => onOpenChange(false)} className="w-full">
+            關閉
           </Button>
         </div>
       </DialogContent>
