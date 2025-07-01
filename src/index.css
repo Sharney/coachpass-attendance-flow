@@ -92,6 +92,11 @@
   @apply grid-cols-1 gap-4;
 }
 
+/* Safe area support for iPhone */
+.safe-area-pb {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
 /* Mobile-first responsive adjustments */
 @media (max-width: 480px) {
   .container-iphone {

@@ -29,6 +29,13 @@ const Index = () => {
     activeCoaches: 5
   };
 
+  const navItems = [
+    { id: 'dashboard', label: '儀表板', icon: BarChart3 },
+    { id: 'checkin', label: '課程簽到', icon: ScanLine },
+    { id: 'clients', label: '客戶管理', icon: Users },
+    { id: 'payroll', label: '薪資計算', icon: DollarSign },
+  ];
+
   const renderTabContent = () => {
     switch (activeTab) {
       case 'dashboard':
@@ -95,7 +102,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-20">
       {/* Header */}
       <header className="bg-white border-b border-border px-4 py-3">
         <div className="flex justify-between items-center">
@@ -122,34 +129,6 @@ const Index = () => {
           </div>
         </div>
       </header>
-
-      {/* Navigation Tabs */}
-      <nav className="bg-white border-b border-border px-4 py-2 overflow-x-auto">
-        <div className="flex space-x-4 min-w-max">
-          {[
-            { id: 'dashboard', label: '儀表板', icon: BarChart3 },
-            { id: 'checkin', label: '課程簽到', icon: ScanLine },
-            { id: 'clients', label: '客戶管理', icon: Users },
-            { id: 'payroll', label: '薪資計算', icon: DollarSign },
-          ].map((tab) => {
-            const Icon = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center space-x-1.5 px-3 py-2 text-xs font-medium rounded-md transition-colors whitespace-nowrap ${
-                  activeTab === tab.id
-                    ? 'bg-primary/10 text-primary border-b-2 border-primary'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
-                }`}
-              >
-                <Icon className="h-3 w-3" />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </nav>
 
       {/* Today's Overview */}
       <div className="px-4 py-4 bg-gradient-to-r from-primary/5 to-secondary/5">
@@ -185,6 +164,32 @@ const Index = () => {
       <main className="container-iphone">
         {renderTabContent()}
       </main>
+
+      {/* Bottom Navigation Bar */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-border px-2 py-2 safe-area-pb">
+        <div className="flex justify-around items-center max-w-sm mx-auto">
+          {navItems.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex flex-col items-center space-y-1 px-3 py-2 rounded-lg transition-colors min-w-0 flex-1 ${
+                  isActive
+                    ? 'bg-primary/10 text-primary'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                }`}
+              >
+                <Icon className={`h-5 w-5 ${isActive ? 'text-primary' : ''}`} />
+                <span className={`text-xs font-medium leading-tight text-center ${isActive ? 'text-primary' : ''}`}>
+                  {tab.label}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </nav>
 
       {/* Check-in Modal */}
       <CheckInModal open={showCheckIn} onOpenChange={setShowCheckIn} />
