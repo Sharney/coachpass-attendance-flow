@@ -3,35 +3,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* CoachPass Design System - Fitness Theme Colors */
+/* CoachPass Design System - Custom Color Palette */
 @layer base {
   :root {
-    /* Primary brand colors - fitness inspired blues and greens */
-    --primary: 214 88% 52%; /* Vibrant blue */
+    /* Primary brand colors - using specified palette */
+    --primary: 142 32% 64%; /* #96C890 - Light green */
     --primary-foreground: 0 0% 98%;
-    --secondary: 142 71% 45%; /* Energetic green */
+    --secondary: 142 32% 41%; /* #517D4C - Dark green */
     --secondary-foreground: 0 0% 98%;
     
     /* Background and surfaces */
-    --background: 220 13% 97%; /* Light grayish blue */
-    --foreground: 215 25% 27%; /* Dark blue-gray */
+    --background: 220 13% 97%; /* Light grayish background */
+    --foreground: 0 0% 33%; /* #544B4B - Dark gray */
     
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 0 0% 33%; /* #544B4B */
     
     /* UI elements */
-    --muted: 214 32% 91%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 142 32% 91%;
+    --muted-foreground: 0 0% 40%;
     
-    --accent: 142 71% 45%;
+    --accent: 142 32% 64%; /* #96C890 */
     --accent-foreground: 0 0% 98%;
     
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 214 88% 52%;
+    --border: 142 32% 85%;
+    --input: 142 32% 85%;
+    --ring: 142 32% 64%;
     
     /* Status colors */
-    --success: 142 71% 45%;
+    --success: 142 32% 64%; /* #96C890 */
     --warning: 43 96% 56%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
@@ -95,6 +95,16 @@
 /* Safe area support for iPhone */
 .safe-area-pb {
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Fixed top app bar */
+.fixed-top-bar {
+  @apply fixed top-0 left-0 right-0 z-50;
+}
+
+/* Main content padding to account for fixed header */
+.main-content-with-fixed-header {
+  @apply pt-16; /* Adjust based on header height */
 }
 
 /* Mobile-first responsive adjustments */

@@ -103,8 +103,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      {/* Header */}
-      <header className="bg-white border-b border-border px-4 py-3">
+      {/* Fixed Top App Bar */}
+      <header className="fixed-top-bar bg-white border-b border-border px-4 py-3 shadow-sm">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-3">
             <div className="bg-primary text-primary-foreground p-1.5 rounded-lg">
@@ -123,15 +123,15 @@ const Index = () => {
             <Button variant="outline" size="sm" className="text-xs px-2">
               <Settings className="h-3 w-3" />
             </Button>
-            <div className="bg-primary text-primary-foreground p-1.5 rounded-full">
+            <div className="bg-secondary text-secondary-foreground p-1.5 rounded-full">
               <span className="text-xs font-medium">AC</span>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Today's Overview */}
-      <div className="px-4 py-4 bg-gradient-to-r from-primary/5 to-secondary/5">
+      {/* Today's Overview - with top padding for fixed header */}
+      <div className="main-content-with-fixed-header px-4 py-4 bg-gradient-to-r from-primary/5 to-secondary/5">
         <div className="grid grid-cols-2 gap-3">
           <Card className="border-none shadow-sm">
             <CardContent className="p-3 text-center">
@@ -147,13 +147,13 @@ const Index = () => {
           </Card>
           <Card className="border-none shadow-sm">
             <CardContent className="p-3 text-center">
-              <div className="text-xl font-bold text-green-600">{todayStats.attendanceRate}%</div>
+              <div className="text-xl font-bold" style={{ color: '#96C890' }}>{todayStats.attendanceRate}%</div>
               <div className="text-xs text-muted-foreground">出席率</div>
             </CardContent>
           </Card>
           <Card className="border-none shadow-sm">
             <CardContent className="p-3 text-center">
-              <div className="text-xl font-bold text-orange-600">{todayStats.activeCoaches}</div>
+              <div className="text-xl font-bold" style={{ color: '#517D4C' }}>{todayStats.activeCoaches}</div>
               <div className="text-xs text-muted-foreground">活躍教練</div>
             </CardContent>
           </Card>
